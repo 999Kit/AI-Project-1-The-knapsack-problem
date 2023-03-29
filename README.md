@@ -3,3 +3,5 @@ if u read dis u r a nigga
 
 
 now write that in FOL
+
+∃x, People(x) ^ ReadBy(x) ^ Nigga(x)
