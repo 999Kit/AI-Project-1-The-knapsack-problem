@@ -85,7 +85,7 @@ def brute_force(weights, values, classes, max_capacity, num_classes):
 if __name__ == "__main__":
     num_of_files = int(input("Enter number of input files: "))
     for i in range(1, num_of_files + 1):
-        with open(f"INPUT{i}.txt", "r") as input_file, open(f"OUTPUT{i}.txt", "w") as output_file:
+        with open(f"INPUT_{i}.txt", "r") as input_file, open(f"OUTPUT_{i}.txt", "w") as output_file:
             max_weight, num_of_classes, weight_list, value_list, class_list = read_data_from_file(input_file)
             sol, sol_val = brute_force(weight_list, value_list, class_list, max_weight, num_of_classes)
             write_solution_to_file(output_file, sol_val, sol, len(weight_list))
