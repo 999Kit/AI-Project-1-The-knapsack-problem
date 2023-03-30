@@ -76,5 +76,5 @@ def genetic_algorithm(problem, population, itr_threshold):
         fittest_generation = max(fittest_generation, fittest_individual, key = problem.fitness)
         population = population2
         itr -= 1
-    return fittest_generation
+    return fittest_generation, problem.fitness(fittest_generation)
 

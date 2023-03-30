@@ -8,6 +8,7 @@ class KnapsackProblem:
         self.typeList = [list() for _ in range(self.m)]
         for i, x in enumerate(self.c):
             self.typeList[x - 1].append(i)
+
     def fitness(self, individual):
         total_weight = 0
         total_value = 0
@@ -23,3 +24,11 @@ class KnapsackProblem:
             return total_value
         return 0
 
+class Node:
+    def __init__(self, state, value=0):
+        self.state = state
+        self.value = 0
+    def __lt__(self, other):
+        return self.value < other.value
+    def __repr__(self):
+        return self.value + '\n' + self.state
