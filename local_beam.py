@@ -26,7 +26,7 @@ def local_beam(problem):
             for i in range(len(problem.w)):
                 for j in range(len(problem.w)):
                     successor = states[i]
-                    successor |= 1 << j
+                    successor ^= 1 << j
                     states.append((problem.fitness(successor), successor))
 
             states.sort(reverse=True)
