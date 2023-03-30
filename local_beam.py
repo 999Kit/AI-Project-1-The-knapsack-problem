@@ -5,31 +5,33 @@ from random import randint
 
 
 def local_beam(problem):
-    beam_depth = 100
-    beam_width = 5
 
-    def generate_state():
+    def generate_state(problem):
         model = 0
         for i in range(len(problem.w)):
             flip = randint(0, 1)
             model |= (flip << i)
         return (problem.fitness(model) ,model)
 
+    beam_width = 5
     def generate_k_states():
         return [generate_state for _ in range(beam_width)]
     
-    states = generate_k_states()
 
     def solve(problem):
+        beam_depth = 100
+        states = generate_k_states()
 
         while beam_depth:
             for i in range(len(problem.w)):
                 for j in range(len(problem.w)):
                     successor = states[i]
-                    successor ^= 1 << j
+                    successor ^= (1 << j)
                     states.append((problem.fitness(successor), successor))
 
             states.sort(reverse=True)
             states = states[:beam_width]
             beam_depth -= 1
-        return states[0]
+
+        return states[0][1], states[0][0]
+    return solve(problem)
