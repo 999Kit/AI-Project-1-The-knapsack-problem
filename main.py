@@ -1,6 +1,8 @@
 from GA import *
 from utils import *
 from brute_force import *
+from branch_and_bound import *
+from local_beam import *
 
 def read_data_from_file(file_handle):
     lines = file_handle.readlines()
@@ -29,7 +31,11 @@ if __name__ == '__main__':
         with open(f"INPUT_{i}.txt", "r") as input_file, open(f"OUTPUT_{i}.txt", "w") as output_file:
             max_weight, num_of_classes, weight_list, value_list, class_list = read_data_from_file(input_file)
             kp = KnapsackProblem(max_weight, num_of_classes, weight_list, class_list, value_list)
-            sol, sol_val = brute_force(kp) # BRUTE FORCE
+            # sol, sol_val = brute_force(kp) # BRUTE FORCE
+            # Branch and Bound
+            # sol, sol_val = branch_and_bound(kp)
+            # Local beam search
+            sol, sol_val = local_beam(kp)
             # GA
             # population = population_generator(kp, 100)
             # sol, sol_val = genetic_algorithm(kp, population, 50)
