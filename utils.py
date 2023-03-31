@@ -16,10 +16,10 @@ class KnapsackProblem:
         for i in range(len(individual)):
             if individual[i]:
                 total_weight += self.w[i]
-                if(total_weight > self.W):
-                    return 0
                 total_value += self.v[i]
                 mask |= (1 << (self.c[i] - 1))
+        if(total_weight > self.W):
+            return self.W - total_weight
         if(mask == (1 << self.m) - 1):
             return total_value
         return 0
