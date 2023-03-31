@@ -7,11 +7,9 @@ def population_generator(problem, n):
     for _ in range(n):
         individual = [0] * len(problem.w)
         for t in problem.typeList:
-            value = random.randrange(1, max(1, (1 << (len(t) - 1))))
-            for i in range(len(t)):
-                if(value % 2 != 0):
-                    individual[t[i]] = 1
-                value >>= 1
+            if(len(t) == 0): break
+            value = random.randrange(0, len(t))
+            individual[t[value]] = 1
         population.append(individual)
     return population
 
@@ -36,7 +34,7 @@ def mutate(problem, x, mr):
     r = problem.typeList[t][r]
 
     # Bad individual
-    if(problem.fitness(x) == 0):
+    if(problem.fitness(x) < 0):
         if x[l] == 1: x[l] = 0
         if x[r] == 1: x[r] = 0
     else:
@@ -61,6 +59,8 @@ def genetic_algorithm(problem, population, itr_threshold):
     mr = 0.4
     itr = itr_threshold
     pop_len = len(population)
+    prefv = 0
+    cnt = 0
     fittest_generation = []
     while itr:
         population2 = []
@@ -73,6 +73,14 @@ def genetic_algorithm(problem, population, itr_threshold):
             population2.append(child2)
         fittest_individual = max(population, key = problem.fitness)
         fittest_value = problem.fitness(fittest_individual)
+        if(cnt >= 45):
+            mr = 0.86
+        else: 
+            mr = 0.4
+            cnt = 0
+        if(fittest_value == prefv):
+            cnt += 1
+        prefv = fittest_value
         fittest_generation = max(fittest_generation, fittest_individual, key = problem.fitness)
         population = population2
         itr -= 1

@@ -35,8 +35,9 @@ if __name__ == '__main__':
             # Branch and Bound
             # sol, sol_val = branch_and_bound(kp)
             # Local beam search
-            sol, sol_val = local_beam(kp)
+            # sol, sol_val = local_beam(kp)
             # GA
-            # population = population_generator(kp, 100)
-            # sol, sol_val = genetic_algorithm(kp, population, 50)
+            # print(len(kp.w))
+            # population = population_generator(kp, 150)
+            # sol, sol_val = genetic_algorithm(kp, population, 5000)
             write_solution_to_file(output_file, sol_val, sol, len(weight_list))
