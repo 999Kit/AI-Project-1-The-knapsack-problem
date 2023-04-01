@@ -72,6 +72,7 @@ def branch_and_bound_bfs(problem: KnapsackProblem):
 
     while len(pq) > 0:
         lb, ub, total_weight, total_value, class_set, current_level, selected = heapq.heappop(pq)
+        # print(f"Current level is {current_level}")
         if len(class_set) == problem.m and lb >= final_ub:
             # allow pruning when lower bound is larger than upper bound and there is at least 1 item of one class
             continue
