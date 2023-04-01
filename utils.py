@@ -44,6 +44,7 @@ class KnapsackProblem:
 
         return total_value
 
+
 class Node:
     def __init__(self, state, value=0):
         self.state = state

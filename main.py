@@ -3,6 +3,8 @@ from utils import *
 from brute_force import *
 from branch_and_bound import *
 from local_beam import *
+import time
+
 
 def read_data_from_file(file_handle):
     lines = file_handle.readlines()
@@ -25,18 +27,23 @@ def write_solution_to_file(file_handle, total_value, model, num_of_objects):
         for k in range(1, num_of_objects):
             file_handle.write(", " + str((model >> k) & 1))
 
+
 if __name__ == '__main__':
     num_of_files = int(input("Enter number of input files: "))
     for i in range(0, num_of_files):
         with open(f"INPUT_{i}.txt", "r") as input_file, open(f"OUTPUT_{i}.txt", "w") as output_file:
             max_weight, num_of_classes, weight_list, value_list, class_list = read_data_from_file(input_file)
             kp = KnapsackProblem(max_weight, num_of_classes, weight_list, class_list, value_list)
-            # sol, sol_val = brute_force(kp) # BRUTE FORCE
-            # Branch and Bound
+            start_time = time.time()
+            # sol, sol_val = brute_force(kp)  # BRUTE FORCE
+            # -------- Branch and Bound ----------
+            sol, sol_val = branch_and_bound_bfs(kp)
             # sol, sol_val = branch_and_bound(kp)
-            # Local beam search
-            sol, sol_val = local_beam(kp)
-            # GA
+            # -------- Local beam search ------------
+            # sol, sol_val = local_beam(kp)
+            # -------- GA -------------
             # population = population_generator(kp, 100)
             # sol, sol_val = genetic_algorithm(kp, population, 50)
+            print("--- Running time: %s ms ---" % ((time.time() - start_time) * 1000))
+
             write_solution_to_file(output_file, sol_val, sol, len(weight_list))
