@@ -1,13 +1,13 @@
 import random
 with open("INPUT_0.txt", 'w') as f:
-    W = random.randrange(50, 100)
-    m = random.randrange(10, 11)
-    n = random.randrange(300, 400)
+    W = random.randrange(60, 70)
+    m = random.randrange(2, 4)
+    n = random.randrange(6, 7)
     print(n, m)
     f.write(str(W) + '\n')
     f.write(str(m) + '\n')
     for _ in range(n):
-        val = str(random.randrange(20, 30))
+        val = str(random.randrange(10, 30))
         if _ != n - 1: val += ', '
         f.write(val)
     f.write('\n')
