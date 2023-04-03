@@ -20,7 +20,9 @@ def local_beam(problem, beam_width=20, beam_depth=100):
     def generate_successors(parent, pq):
         for i in range(len(problem.w)):
             successor = parent ^ (1 << i)
-            heapq.heappush(pq, (problem.evaluation_function(successor) * -1, successor))
+            value = problem.evaluation_function(successor)
+            if value >= 0:
+                heapq.heappush(pq, (value * -1, successor))
 
     def solve(beam_width, beam_depth):
         # initialize k randomly generated states
