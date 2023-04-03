@@ -78,6 +78,8 @@ def branch_and_bound_bfs(problem: KnapsackProblem):
     heapq.heapify(pq)
 
     while len(pq) > 0:
+        if time.time() - start_time > 3:
+            return problem.W + 1, problem.W + 1
         lb, ub, total_weight, total_value, class_set, current_level, selected, cur_state = heapq.heappop(pq)
         # print(f"Current level is {current_level}")
         if len(class_set) == problem.m and (lb > min_upper or lb >= final_ub):
