@@ -6,7 +6,7 @@ from random import randint
 import heapq
 
 
-def local_beam(problem, beam_width=5, beam_depth=100):
+def local_beam(problem, beam_width=20, beam_depth=100):
     def generate_state():
         model = 0
         for i in range(len(problem.w)):
@@ -17,12 +17,10 @@ def local_beam(problem, beam_width=5, beam_depth=100):
     def generate_k_states():
         return [generate_state() for _ in range(beam_width)]
 
-    def generate_successors(parent, index, pq):
-        if index < 0:
-            return
-        heapq.heappush(pq, (problem.evaluation_function(parent) * -1, parent))
-        generate_successors(parent ^ (1 << index), index - 1, pq)
-        generate_successors(parent, index - 1, pq)
+    def generate_successors(parent, pq):
+        for i in range(len(problem.w)):
+            successor = parent ^ (1 << i)
+            heapq.heappush(pq, (problem.evaluation_function(successor) * -1, successor))
 
     def solve(beam_width, beam_depth):
         # initialize k randomly generated states
@@ -31,7 +29,7 @@ def local_beam(problem, beam_width=5, beam_depth=100):
         while beam_depth:
             # generate all successors of each state
             for i in range(beam_width):
-                generate_successors(pq[i][1], len(problem.w) - 1, pq)
+                generate_successors(pq[i][1], pq)
 
             # select k best successors
             select = [heapq.heappop(pq) for _ in range(beam_width)]

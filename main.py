@@ -37,11 +37,11 @@ if __name__ == '__main__':
             # sol, sol_val = brute_force(kp)  # BRUTE FORCE
             # -------- Branch and Bound ----------
             start_time = time.time()
-            sol, sol_val = branch_and_bound(kp)
+            # sol, sol_val = branch_and_bound(kp)
+            sol, sol_val = local_beam(kp)
             print(f"--- Running time for branch and bound: %s ms ---" % ((time.time() - start_time) * 1000))
             # sol, sol_val = branch_and_bound(kp)
             # ----- Local beam search -------
-            # sol, sol_val = local_beam(kp)
             # ----- GA ----------------
             # print(len(kp.w))
             # population = population_generator(kp, 150)
