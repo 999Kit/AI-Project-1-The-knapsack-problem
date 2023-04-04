@@ -17,7 +17,7 @@ def local_beam(problem, beam_width=100, beam_depth=1):
             model |= (flip << i)
         return (problem.eval_lb(model)*-1, model)
 
-    def generate_k_states():
+    def generate_k_states_randomly():
         return [generate_state() for _ in range(beam_width)]
 
     def generate_k_states_greedily():
@@ -62,7 +62,7 @@ def local_beam(problem, beam_width=100, beam_depth=1):
             heapq.heappush(pq, (value, successor))
 
     def solve(beam_width, beam_depth):
-        # initialize k randomly generated states
+        # initialize k greedily generated states
         pq = generate_k_states_greedily()
         while beam_depth:
             # generate all successors of each state
