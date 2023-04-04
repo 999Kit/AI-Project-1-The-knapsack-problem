@@ -1,0 +1,10 @@
+test 0: n = 18, bình thường
+test 1: ko có nghiệm do không có đồ vật ở class 2
+test 2: chọn hết tất cả các đồ
+test 3: n = 38, có thể ko chạy đc Trâu, còn Nhánh cận hên xui, max = 1807(theo GA)
+test 4: không có nghiệm do max_size ko đủ
+test 5: n = 99, chọn full
+test 6: n = 379, không chọn được
+test 7: chỉ chọn được 15 bit đầu :>
+test 8: n = 1000, m = 7, chọn được ít đồ do W nhỏ
+test 9: n = 1000, m = 10
