@@ -58,21 +58,12 @@ def local_beam(problem, beam_width=100, beam_depth=1):
         for i in range(len(problem.w)):
             successor = parent ^ (1 << i)
             value = 0
-            # if successor in map:
-            #     value = map[successor]
-            # else:
-            #     map[successor] = value
-            #     value = problem.eval_lb(successor) * -1
             value = problem.eval_lb(successor) * -1
             heapq.heappush(pq, (value, successor))
 
     def solve(beam_width, beam_depth):
         # initialize k randomly generated states
-        # pq = generate_k_states()
         pq = generate_k_states_greedily()
-        print(pq)
-        map = {}
-        # print(len(problem.w))
         while beam_depth:
             # generate all successors of each state
             for i in range(beam_width):
@@ -89,7 +80,6 @@ def local_beam(problem, beam_width=100, beam_depth=1):
             value = 0
         else:
             value *= -1
-        print(value)
 
         return pq[0][1], value
 

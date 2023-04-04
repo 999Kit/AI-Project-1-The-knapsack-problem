@@ -16,7 +16,13 @@ def read_data_from_file(file_handle):
 
     return max_w, num_c, w_list, v_list, c_list
 
-def write_solution_to_file(file_handle, total_value, model, num_of_objects):
+def write_solution_to_file(file_handle, total_value, model, num_of_objects, mw):
+    if total_value == 0:
+        file_handle.write("NO SOLUTION")
+        return
+    if total_value == int(1e9):
+        file_handle.write("INTRACTABLE")
+        return
     file_handle.write(str(total_value) + '\n')
     if type(model) is list:
         for i in range(len(model)):
@@ -34,16 +40,15 @@ if __name__ == '__main__':
         with open(f"inputs/INPUT_{i}.txt", "r") as input_file, open(f"outputs/OUTPUT_{i}.txt", "w") as output_file:
             max_weight, num_of_classes, weight_list, value_list, class_list = read_data_from_file(input_file)
             kp = KnapsackProblem(max_weight, num_of_classes, weight_list, class_list, value_list)
-            # sol, sol_val = brute_force(kp)  # BRUTE FORCE
+            # -------- Brute Force ----------
+            # sol, sol_val = brute_force(kp)
             # -------- Branch and Bound ----------
-            start_time = time.time()
-            # sol, sol_val = branch_and_bound(kp)
-            sol, sol_val = local_beam(kp)
-            print(f"--- Running time for branch and bound: %s ms ---" % ((time.time() - start_time) * 1000))
             # sol, sol_val = branch_and_bound(kp)
             # ----- Local beam search -------
+            sol, sol_val = local_beam(kp)
             # ----- GA ----------------
-            # print(len(kp.w))
             # population = population_generator(kp, 150)
-            # sol, sol_val = genetic_algorithm(kp, population, 5000)
-            write_solution_to_file(output_file, sol_val, sol, len(weight_list))
+            # sol, sol_val = genetic_algorithm(kp, population, 1000)
+            write_solution_to_file(output_file, sol_val, sol, len(weight_list), kp.W)
+
+
