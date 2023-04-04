@@ -33,16 +33,35 @@ class KnapsackProblem:
             if (model >> idx) & 1 == 1:
                 total_weight += self.w[idx]
 
-                if total_weight > self.W:
-                    return -1
+                
 
                 total_value += self.v[idx]
                 classes_chosen |= 1 << (self.c[idx] - 1)
 
         if classes_chosen + 1 != 1 << self.m:
             return 0
-
+        if total_weight > self.W:
+            return self.W - total_weight
         return total_value
+    def eval_lb(self, model):
+            classes_chosen = 0
+            total_weight = 0
+            total_value = 0
+
+            for idx in range(len(self.w)):
+                if (model >> idx) & 1 == 1:
+                    total_weight += self.w[idx]
+
+
+                    total_value += self.v[idx]
+                    classes_chosen |= 1 << (self.c[idx] - 1)
+
+            if classes_chosen + 1 != 1 << self.m:
+                return 0
+            if total_weight > self.W:
+                return self.W - total_weight
+
+            return total_value
 
 
 class Node:
